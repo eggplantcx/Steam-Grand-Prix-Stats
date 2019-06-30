@@ -1,0 +1,17 @@
+{
+  "start": "title Grand Prix Scores",
+  "name": "score_reader",
+  "version": "1.0.0",
+  "description": "retreives scores of teams in 2019 summer sale",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.3.3",
+    "discord-rich-presence": "0.0.8",
+    "ws": "^7.0.1"
+  }
+}
