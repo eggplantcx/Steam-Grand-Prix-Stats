@@ -8,6 +8,12 @@ let curTime;
 
 let richPresenceEnabled = true;
 
+let args = process.argv.splice(2);
+
+for(let i = 0; i < args.length; i++){
+    if(args[i] == '-disableRP'){ richPresenceEnabled = false; }
+}
+
 let maxLengths = [0, 0, 0, 0];
 
 function sortTeams(teams){
