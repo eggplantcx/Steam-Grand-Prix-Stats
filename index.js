@@ -23,7 +23,7 @@ function sortTeams(teams){
     return teams;
 }
 
-function colorStr(str, id){
+function colorName(str, id){
     switch(id){
         case 1:
             return str.grey;
@@ -141,7 +141,7 @@ function updateScores(data){
     }
     
     for(let i = 0; i < teams.length; i++){
-        console.log(colorStr(addSpace(teams[i].name, 12), teams[i].teamid) +
+        console.log(colorName(addSpace(teams[i].name, 12), teams[i].teamid) +
         colorByRank(addSpace(teams[i].prog, maxLengths[scoreEnum.progress]), i) + " % Progress   " +
         addSpace(teams[i].dist, maxLengths[scoreEnum.distance]).yellow.bold + " km   " +
         addSpace(teams[i].boost, maxLengths[scoreEnum.boost]).yellow.bold + "x Boost   " +
