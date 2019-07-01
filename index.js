@@ -159,6 +159,8 @@ function updateScores(data){
 function openSocket(){
     let ws = new WebSocket('wss://community.steam-api.com/websocket/');
 
+    let retryConnection = false;
+
     ws.on('open', ()=>{
         ws.send(JSON.stringify({ message: "subscribe", seqnum: 1, feed: "TeamEventScores" }));
         console.log('Opened socket and requested score subscription');
@@ -174,11 +176,13 @@ function openSocket(){
     });
     ws.on('error', ()=>{
         console.log('Websocket error');
+        retryConnection = true;
         try{ ws.close(); }
         catch(e){}
         openSocket();
     });
     ws.on('close', ()=>{
+        if(retryConnection){ openSocket(); }
         console.log('Websocket closed');
     });
 }
