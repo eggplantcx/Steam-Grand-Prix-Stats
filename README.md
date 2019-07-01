@@ -3,6 +3,8 @@ Rich Presence for Steam Grand Prix 2019
 
 Requires [Node.js](https://nodejs.org/en/)
 
+To disable rich presence open `index.js` and change `richPresenceEnabled = true;` to `richPresenceEnabled = false;`
+
 # Installation
 
 1. Download
