@@ -12,10 +12,9 @@ Requires [Node.js](https://nodejs.org/en/)
 
 ## Options
 
-**Command line arguments**
-1. `-disableRP` Disables Discord Rich Presence
-1. `-moreData` Displays the current boosts and deboosts as well as the total boosts and deboosts
+#### Command line arguments
+- `-disableRP` Disables Discord Rich Presence
+- `-moreData` Displays the current boosts and deboosts as well as the total boosts and deboosts
 
-**How to use**
-
-  add the desired arg to the end of `node index.js` ex. `node index.js -moreData`
+#### How to use
+add the desired arg to the end of `node index.js` ex. `node index.js -moreData`
