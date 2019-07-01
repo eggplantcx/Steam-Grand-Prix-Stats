@@ -1,5 +1,5 @@
-# steam-grand-prix-rp
-Rich Presence for Steam Grand Prix 2019
+# Steam Grand Prix Stats
+Stats for Steam Grand Prix 2019 with Rich Presence support
 
 Requires [Node.js](https://nodejs.org/en/)
 
