@@ -6,6 +6,8 @@ const scoreEnum = Object.freeze({'progress':0, 'boost':1, 'distance':2, 'mult':3
 
 let curTime;
 
+let richPresenceEnabled = true;
+
 let maxLengths = [0, 0, 0, 0];
 
 function sortTeams(teams){
@@ -126,15 +128,17 @@ function updateScores(data){
     teams = sortTeams(teams);
     teams = formatScores(teams);
 
-    rp.updatePresence({
-        details: '3rd - ' + teams[2].name + ', 4th - ' + teams[3].name + ', 5th - ' + teams[4].name,
-        state: teams[0].dist + 'km Traveled',
-        largeImageKey: teams[0].large_icon,
-        largeImageText: teams[0].name + ' - 1st - ' + teams[0].prog + '%',
-        smallImageKey: teams[1].small_icon,
-        smallImageText: teams[1].name + ' - 2nd - ' + teams[1].prog + '%',
-        instance: true,
-    });
+    if(richPresenceEnabled){
+        rp.updatePresence({
+            details: '3rd - ' + teams[2].name + ', 4th - ' + teams[3].name + ', 5th - ' + teams[4].name,
+            state: teams[0].dist + 'km Traveled',
+            largeImageKey: teams[0].large_icon,
+            largeImageText: teams[0].name + ' - 1st - ' + teams[0].prog + '%',
+            smallImageKey: teams[1].small_icon,
+            smallImageText: teams[1].name + ' - 2nd - ' + teams[1].prog + '%',
+            instance: true,
+        });
+    }
     
     for(let i = 0; i < teams.length; i++){
         console.log(colorStr(addSpace(teams[i].name, 12), teams[i].teamid) +
