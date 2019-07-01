@@ -2,19 +2,21 @@ const WebSocket = require('ws');
 const colors = require('colors');
 const rp = require('discord-rich-presence')('594728534602285070');
 
-const scoreEnum = Object.freeze({'progress':0, 'boost':1, 'distance':2, 'mult':3});
+const scoreEnum = Object.freeze({'progress':0, 'boost':1, 'distance':2, 'mult':3, 'total_boosts':4, 'total_deboosts':5, 'cur_boosts':6, 'cur_deboosts':7});
 
 let curTime;
 
 let richPresenceEnabled = true;
+let moreData = false;
 
 let args = process.argv.splice(2);
 
 for(let i = 0; i < args.length; i++){
-    if(args[i] == '-disableRP'){ richPresenceEnabled = false; }
+    if(args[i] == '-disableRP')    { richPresenceEnabled = false; }
+    else if(args[i] == '-moreData'){ moreData = true; }
 }
 
-let maxLengths = [0, 0, 0, 0];
+let maxLengths = [0, 0, 0, 0, 0, 0, 0, 0];
 
 function sortTeams(teams){
     for(let i = 0; i < teams.length-1; i++){
@@ -69,7 +71,7 @@ function colorByRank(str, rank){
 }
 
 function formatScores(teams){
-    maxLengths = [0, 0, 0, 0];
+    maxLengths = [0, 0, 0, 0, 0 ,0 ,0 ,0];
     var cminDayStart = ((curTime - 1561482000) / 60) % 1440;
     for(let i = 0; i < teams.length; i++){
         var flScorePercent = parseFloat( teams[i].score_pct );
@@ -88,6 +90,16 @@ function formatScores(teams){
         
         teams[i].mult = teams[i].current_multiplier.toFixed(6);
         if(teams[i].mult.length > maxLengths[scoreEnum.mult]){ maxLengths[scoreEnum.mult] = teams[i].mult.length; }
+
+        if(teams[i].total_boosts.length > maxLengths[scoreEnum.total_boosts]){ maxLengths[scoreEnum.total_boosts] = teams[i].total_boosts.length; }
+        if(teams[i].total_deboosts.length > maxLengths[scoreEnum.total_deboosts]){ maxLengths[scoreEnum.total_deboosts] = teams[i].total_deboosts.length; }
+
+        teams[i].current_active_boosts = teams[i].current_active_boosts.toString();
+        if(teams[i].current_active_boosts.length > maxLengths[scoreEnum.cur_boosts]){ maxLengths[scoreEnum.cur_boosts] = teams[i].current_active_boosts.length; }
+
+        teams[i].current_active_deboosts = teams[i].current_active_deboosts.toString();
+        if(teams[i].current_active_deboosts.length > maxLengths[scoreEnum.cur_deboosts]){ maxLengths[scoreEnum.cur_deboosts] = teams[i].current_active_deboosts.length; }
+
         switch(teams[i].teamid){
             case 1:
                 teams[i].name = 'Hare';
@@ -147,12 +159,19 @@ function updateScores(data){
     }
     
     for(let i = 0; i < teams.length; i++){
-        console.log(colorName(addSpace(teams[i].name, 12), teams[i].teamid) +
+        process.stdout.write(colorName(addSpace(teams[i].name, 12), teams[i].teamid) +
         colorByRank(addSpace(teams[i].prog, maxLengths[scoreEnum.progress]), i) + " % Progress   " +
         addSpace(teams[i].dist, maxLengths[scoreEnum.distance]).yellow.bold + " km   " +
         addSpace(teams[i].boost, maxLengths[scoreEnum.boost]).yellow.bold + "x Boost   " +
         addSpace(teams[i].score, 6).yellow.bold + " % Score   " +
-        teams[i].mult.yellow.bold + " Multiplier");
+        teams[i].mult.yellow.bold + " Multiplier   ");
+        if(moreData){
+            process.stdout.write(addSpace(teams[i].current_active_boosts, maxLengths[scoreEnum.cur_boosts]).yellow.bold + " Active Boosts   " +
+            addSpace(teams[i].current_active_deboosts, maxLengths[scoreEnum.cur_deboosts]).yellow.bold + " Active Deboosts   " +
+            addSpace(teams[i].total_boosts, maxLengths[scoreEnum.total_boosts]).yellow.bold + " Total Boosts   " +
+            addSpace(teams[i].total_deboosts, maxLengths[scoreEnum.total_deboosts]).yellow.bold + " Total Deboots");
+        }
+        process.stdout.write('\n');
     }
 }
 
