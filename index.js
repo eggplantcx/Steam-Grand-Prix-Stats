@@ -186,7 +186,7 @@ function openSocket(){
     });
     ws.on('message', (m)=>{
         m = JSON.parse(m);
-        if(!m && m.message != "feedupdate"){ return; }
+        if(!m || m.message != "feedupdate"){ return; }
         if(m.feed != "TeamEventScores"){ return; }
 
         let data = JSON.parse(m.data);
