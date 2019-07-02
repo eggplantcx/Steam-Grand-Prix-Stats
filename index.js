@@ -169,7 +169,7 @@ function updateScores(data){
             process.stdout.write(addSpace(teams[i].current_active_boosts, maxLengths[scoreEnum.cur_boosts]).yellow.bold + " Active Boosts   " +
             addSpace(teams[i].current_active_deboosts, maxLengths[scoreEnum.cur_deboosts]).yellow.bold + " Active Deboosts   " +
             addSpace(teams[i].total_boosts, maxLengths[scoreEnum.total_boosts]).yellow.bold + " Total Boosts   " +
-            addSpace(teams[i].total_deboosts, maxLengths[scoreEnum.total_deboosts]).yellow.bold + " Total Deboots");
+            addSpace(teams[i].total_deboosts, maxLengths[scoreEnum.total_deboosts]).yellow.bold + " Total Deboosts");
         }
         process.stdout.write('\n');
     }
