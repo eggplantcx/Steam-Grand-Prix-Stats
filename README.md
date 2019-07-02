@@ -17,4 +17,4 @@ Requires [Node.js](https://nodejs.org/en/)
 - `-moreData` Displays the current boosts and deboosts as well as the total boosts and deboosts
 
 #### How to use
-add the desired arg to the end of `node index.js` ex. `node index.js -moreData`
+add the desired arg(s) to the end of `node index.js` ex. `node index.js -moreData`
