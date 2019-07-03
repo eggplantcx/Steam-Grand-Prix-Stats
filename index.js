@@ -196,11 +196,11 @@ function openSocket(){
         try{ ws.close(); }
         catch(e){}
         console.log("Retrying in 5 seconds");
-        setTimeout(openSocket(), 5000);
+        setTimeout(openSocket, 5000);
     });
     ws.on('close', ()=>{
         console.log('Websocket closed, retrying in 5 seconds');
-        setTimeout(openSocket(), 5000);
+        setTimeout(openSocket, 5000);
     });
 }
 openSocket();
