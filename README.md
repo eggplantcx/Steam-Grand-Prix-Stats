@@ -1,3 +1,5 @@
+# This no longer works
+
 # Steam Grand Prix Stats
 Stats for Steam Grand Prix 2019 with Rich Presence support
 
